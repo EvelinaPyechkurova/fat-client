@@ -1,13 +1,154 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    font-family: "Quicksand";
+    color: #333;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.navbar {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    max-width: 700px;
+    margin: 0 auto;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.navbar h1 {
+    color: #6610f2;
+}
+
+.navbar .links {
+    margin-left: auto;
+}
+.navbar a {
+    margin-left: 16px;
+    text-decoration: none;
+    padding: 6px;
+}
+
+.navbar a:hover {
+    color: #6610f2;
+}
+
+.content {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.preview{
+    padding: 10px 16px;
+    margin: 20px 0;
+    border-bottom: 1px solid #fafafa;
+}
+
+.preview:hover{
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.preview h2{
+    font-size: 20px;
+    color: #6610f2;
+    margin-bottom: 8px;
+}
+
+.preview a{
+    text-decoration: none;
+}
+
+.details{
+    padding: 20px;
+    padding-left: 80px;
+    border: thick solid #6610f2;
+    border-radius: 25% 10%;;
+    max-width: 400px;
+}
+
+.details h2{
+    font-size: 20px;
+    color:#6610f2;
+    margin-bottom: 10px;
+}
+
+.details div{
+    margin: 20px 0;
+}
+
+button {
+    padding: 10px 20px;
+    border: 2px solid #6610f2;
+    border-radius: 5px;
+    color: #6610f2;
+    background-color: transparent;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+    background-color: #6610f2;
+    color: #ffffff;
+}
+
+.delete-button{
+    margin-left: 120px;
+}
+
+.form-container{
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.form-container label{
+    text-align: left;
+    display: block;
+}
+
+.form-container h2{
+    font-size: 20px;
+    color: #6610f2;
+    margin-bottom: 30px;
+}
+
+.form-container input, .form-container textarea, .form-container select {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    display: block;
+}
+
+.form-container input:focus{
+    background-color: #6610f2;
+    color: #f2f2f2;
+}
+
+.field-item a{
+    text-decoration: none;
+}
+
+.field-item a:hover{
+    color: #6610f2;
+}
+
+.errorMessage {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.errorMessage p {
+    font-weight: bold;
+    margin: 0 10px 10px 10px;
+}
+
+.errorMessage ul {
+    padding-left: 20px;
 }
