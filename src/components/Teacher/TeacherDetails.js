@@ -8,6 +8,8 @@ const TeacherDetails = () => {
     const {id} = useParams();
     const {data:teacher, isLoading, error} = useFetchData(`http://localhost:3000/teachers/${id}`);
     const {data:subjects} = useFetchData(`http://localhost:3000/subjects?teacher=${id}`);
+    if(error)
+        console.log(error);
 
     const navigate = useNavigate();
 
@@ -45,10 +47,11 @@ const TeacherDetails = () => {
     
         try {
             const res = await fetch(`http://localhost:3000/teachers/${id}`, {
-                method: 'PUT',
+                method: 'PATCH',
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify(updatedTeacher),
             });
+
     
             if (!res.ok) {
                 const errorData = await res.json();
@@ -58,6 +61,7 @@ const TeacherDetails = () => {
             console.log(`Teacher with id ${id} edited`);
             setIsEditing(false);
             navigate(`/teachers/${id}`);
+            window.location.reload();
         } catch (e) {
             setErrorMessage(e);
         }
@@ -76,10 +80,11 @@ const TeacherDetails = () => {
                             <h2>
                                 Update existing teacher
                             </h2>
-                        <form action={handleUpdateSubmit}>
+                        <form onSubmit={handleUpdateSubmit}>
                             <label>Teacher name:</label>
                             <input
                              type="text"
+                             name="name"
                              required
                              value={updatedTeacher.name}
                              onChange={handleInputChange}
@@ -87,6 +92,7 @@ const TeacherDetails = () => {
                             <label>Teacher surname:</label>
                             <input
                              type="text"
+                             name="surname"
                              required
                              value={updatedTeacher.surname}
                              onChange={handleInputChange}
@@ -94,6 +100,7 @@ const TeacherDetails = () => {
                             <label>Teacher phone number:</label>
                             <input
                              type="text"
+                             name="phone"
                              required
                              value={updatedTeacher.phone}
                              onChange={handleInputChange}
@@ -101,6 +108,7 @@ const TeacherDetails = () => {
                             <label>Teacher email address:</label>
                             <input
                              type="text"
+                             name="email"
                              required
                              value={updatedTeacher.email}
                              onChange={handleInputChange}
