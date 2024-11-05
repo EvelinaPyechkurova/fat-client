@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import useFetchData from '../../hooks/useFetchData';
 import {Link} from 'react-router-dom';
 import ErrorMessage from "../ErrorMessage";
+import Form from "../Form";
 
 const TeacherDetails = () => {
     const {id} = useParams();
@@ -14,8 +15,22 @@ const TeacherDetails = () => {
     const navigate = useNavigate();
 
     const [isEditing, setIsEditing] = useState(false);
-    const [updatedTeacher, setUpdatedTeacher] = useState({name: "", surname: "", phone: "", email: ""});
+
+    const [updatedTeacher, setUpdatedTeacher] = useState({
+        name: "",
+        surname: "",
+        phone: "",
+        email: ""
+    });
+
     const [errorMessage, setErrorMessage] = useState(null);
+
+    const fields = [
+        {type: "text", name: "name", label: "Teacher name", value: updatedTeacher.name, onChange: (e) => handleInputChange(e)},
+        {type: "text", name: "surname", label: "Teacher surname", value: updatedTeacher.surname, onChange: (e) => handleInputChange(e)},
+        {type: "text", name: "phone", label: "Teacher phone", value: updatedTeacher.phone, onChange: (e) => handleInputChange(e)},
+        {type: "text", name: "email", label: "Teacher email", value: updatedTeacher.email, onChange: (e) => handleInputChange(e)}
+    ];
 
     const handleDelete = () => {
         fetch(`http://localhost:3000/teachers/${id}`, {
@@ -38,8 +53,7 @@ const TeacherDetails = () => {
     };
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setUpdatedTeacher(prevState => ({ ...prevState, [name]: value }));
+        setUpdatedTeacher({ ...updatedTeacher, [e.target.name]: e.target.value });
     };
 
     const handleUpdateSubmit = async (e) => {
@@ -52,7 +66,6 @@ const TeacherDetails = () => {
                 body: JSON.stringify(updatedTeacher),
             });
 
-    
             if (!res.ok) {
                 const errorData = await res.json();
                 throw errorData.error;
@@ -76,47 +89,10 @@ const TeacherDetails = () => {
                     {isEditing ?
                     (
                         <div className="form-container">
+                            <h2>Edit existing teacher</h2>
                             {errorMessage && <ErrorMessage error={errorMessage} />}
-                            <h2>
-                                Update existing teacher
-                            </h2>
-                        <form onSubmit={handleUpdateSubmit}>
-                            <label>Teacher name:</label>
-                            <input
-                             type="text"
-                             name="name"
-                             required
-                             value={updatedTeacher.name}
-                             onChange={handleInputChange}
-                            />
-                            <label>Teacher surname:</label>
-                            <input
-                             type="text"
-                             name="surname"
-                             required
-                             value={updatedTeacher.surname}
-                             onChange={handleInputChange}
-                            />
-                            <label>Teacher phone number:</label>
-                            <input
-                             type="text"
-                             name="phone"
-                             required
-                             value={updatedTeacher.phone}
-                             onChange={handleInputChange}
-                            />
-                            <label>Teacher email address:</label>
-                            <input
-                             type="text"
-                             name="email"
-                             required
-                             value={updatedTeacher.email}
-                             onChange={handleInputChange}
-                            />    
-                            <button type="submit">Save Changes</button>
-                            <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>                   
-                        </form>
-                        </div>
+                            <Form fields={fields} onChange={handleInputChange} isLoading={isLoading}></Form>
+                        </div>  
                     ) : 
                     (
                         <div className="details">
