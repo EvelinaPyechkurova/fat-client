@@ -153,3 +153,11 @@ button:hover {
 .errorMessage ul {
     padding-left: 20px;
 }
+
+.emphasized{
+    color: #6610f2;
+}
+
+.emphasized:hover{
+    text-decoration: underline;
+}

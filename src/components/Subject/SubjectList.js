@@ -6,7 +6,7 @@ const SubjectList = ({subjects}) => {
             {subjects.map((subject) => (
                 <div className="preview" key={subject._id}>
                     <Link to={`/subjects/${subject._id}`}>
-                        <h2>{subject.surname} {subject.name}</h2>
+                        <h2>{subject.name}</h2>
                     </Link>
                 </div>
             ))}

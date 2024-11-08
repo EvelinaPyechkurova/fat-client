@@ -3,9 +3,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Teachers from './components/Teacher/Teachers';
 import TeacherDetails from './components/Teacher/TeacherDetails';
 import CreateTeacher from './components/Teacher/CreateTeacher';
-import SubjectDetails from './components/Subject/SubjectDetails';
 import Subjects from './components/Subject/Subjects';
+import SubjectDetails from './components/Subject/SubjectDetails';
 import CreateSubject from './components/Subject/CreateSubject';
+import Lectures from './components/Lecture/Lectures';
+import LectureDetails from './components/Lecture/LectureDetails';
+import CreateLecture from './components/Lecture/CreateLecture';
 
 function App() {
     return(
@@ -20,8 +23,10 @@ function App() {
                     <Route path="/subjects" element={<Subjects/>}/>
                     <Route path="/subjects/:id" element={<SubjectDetails/>}/>
                     <Route path="/subjects/create" element={<CreateSubject/>}/>
-                    {/* <Route path="/lectures" element={<LectureList/>}/>
-                    <Route path="*" element={<NotFound/>}/> */}
+                    <Route path="/lectures" element={<Lectures/>}/>
+                    <Route path="/lectures/:id" element={<LectureDetails/>}/>
+                    <Route path="/lectures/create" element={<CreateLecture/>}/>
+                    {/* <Route path="*" element={<NotFound/>}/> */}
                 </Routes>
             </div>
         </div>
