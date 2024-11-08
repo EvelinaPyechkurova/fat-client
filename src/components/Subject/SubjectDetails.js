@@ -4,11 +4,12 @@ import useFetchData from '../../hooks/useFetchData';
 import {Link} from 'react-router-dom';
 import ErrorMessage from "../ErrorMessage";
 import Form from "../Form";
+import {TRIMESTER_TYPE_VALUES, YERS_VALUES} from "../../utils/constants"
 
-const TeacherDetails = () => {
+const SubjectDetails = () => {
     const {id} = useParams();
-    const {data:teacher, isLoading, error} = useFetchData(`http://localhost:3000/teachers/${id}`);
-    const {data:subjects} = useFetchData(`http://localhost:3000/subjects?teacher=${id}`);
+    const {data:subject, isLoading, error} = useFetchData(`http://localhost:3000/subjects/${id}`);
+    const {data:teachers} = useFetchData(`http://localhost:3000/teachers?subject=${id}`);
     if(error)
         console.log(error);
 
@@ -16,25 +17,26 @@ const TeacherDetails = () => {
 
     const [isEditing, setIsEditing] = useState(false);
 
-    const [updatedTeacher, setUpdatedTeacher] = useState({
+    const [updatedSubject, setUpdatedSubject] = useState({
         name: "",
-        surname: "",
-        phone: "",
-        email: ""
+        year: "",
+        trimester: ""
     });
 
     const [errorMessage, setErrorMessage] = useState(null);
 
     const fields = [
-        {type: "text", name: "name", label: "Teacher name", value: updatedTeacher.name, onChange: (e) => handleInputChange(e)},
-        {type: "text", name: "surname", label: "Teacher surname", value: updatedTeacher.surname, onChange: (e) => handleInputChange(e)},
-        {type: "text", name: "phone", label: "Teacher phone", value: updatedTeacher.phone, onChange: (e) => handleInputChange(e)},
-        {type: "text", name: "email", label: "Teacher email", value: updatedTeacher.email, onChange: (e) => handleInputChange(e)}
+        {type: "text", name: "name", label: "Subject name", value: updatedSubject.name, 
+            onChange: (e) => handleInputChange(e)},
+        {type: "number", name: "year", label: "Subject year", value: updatedSubject.year,
+             onChange: (e) => handleInputChange(e), options: YERS_VALUES},
+        {type: "text", name: "trimester", label: "Subject trimester", value: updatedSubject.trimester,
+             onChange: (e) => handleInputChange(e), options: TRIMESTER_TYPE_VALUES}
     ];
 
     const handleDelete = async () => {
         try{
-            const res = await fetch(`http://localhost:3000/teachers/${id}`, {
+            const res = await fetch(`http://localhost:3000/subjects/${id}`, {
                 method: 'DELETE'
             })
 
@@ -43,7 +45,7 @@ const TeacherDetails = () => {
                 throw {error: errorData.error};
             }
 
-            navigate("/teachers")
+            navigate("/subjects")
 
         }catch(e){
             setErrorMessage(e);
@@ -52,26 +54,29 @@ const TeacherDetails = () => {
 
     const handleUpdateClick = () => {
         setIsEditing(true);
-        setUpdatedTeacher({
-            name: teacher.name, 
-            surname: teacher.surname, 
-            phone: teacher.phone, 
-            email: teacher.email
+        setUpdatedSubject({
+            name: subject.name, 
+            year: subject.year, 
+            trimester: subject.trimester
         });
     };
 
     const handleInputChange = (e) => {
-        setUpdatedTeacher({ ...updatedTeacher, [e.target.name]: e.target.value });
+        const {name, value} = e.target;
+        setUpdatedSubject(prevState => ({
+            ...prevState,
+            [name]: name === "year" ? Number(value) : value
+        }))
     };
 
     const handleUpdateSubmit = async (e) => {
         e.preventDefault();
     
         try {
-            const res = await fetch(`http://localhost:3000/teachers/${id}`, {
+            const res = await fetch(`http://localhost:3000/subjects/${id}`, {
                 method: 'PATCH',
                 headers: { "Content-type": "application/json" },
-                body: JSON.stringify(updatedTeacher),
+                body: JSON.stringify(updatedSubject),
             });
 
             if (!res.ok) {
@@ -79,9 +84,9 @@ const TeacherDetails = () => {
                 throw errorData.error;
             }
     
-            console.log(`Teacher with id ${id} edited`);
+            console.log(`Subject with id ${id} edited`);
             setIsEditing(false);
-            navigate(`/teachers/${id}`);
+            navigate(`/subjects/${id}`);
             window.location.reload();
         } catch (e) {
             setErrorMessage(e);
@@ -93,32 +98,32 @@ const TeacherDetails = () => {
             {isLoading && <div>Loading...</div>}
             {error && <div>{error}</div>}
             {errorMessage && <ErrorMessage error={errorMessage} />}
-            {teacher && (
+            {subject && (
                 <div>
                     {isEditing ?
                     (
                         <div className="form-container">
-                            <h2>Edit existing teacher</h2>
+                            <h2>Edit existing subject</h2>
                             <Form fields={fields} handleSubmit={handleUpdateSubmit} isLoading={isLoading}></Form>
                         </div>  
                     ) : 
                     (
                         <div className="details">
-                        <h2>{teacher.surname} {teacher.name}</h2>
-                        <p>Phone number: {teacher.phone}</p> 
-                        <p>Email address: {teacher.email}</p>
-                        {subjects && subjects.length > 0 ? (
+                        <h2>{subject.name} </h2>
+                        <p>Year: {subject.year}</p> 
+                        <p>Trimester: {subject.trimester}</p>
+                        {teachers && teachers.length > 0 ? (
                             <div>
-                                <p>Subject read by this teacher:</p>
+                                <p>Teachers reading this subject:</p>
                                 <ul className="field-list">
-                                    {subjects.map((subject) => (
-                                        <li className="field-item" key={subject._id}>
-                                            <Link to={`/subjects/${subject._id}`}>{subject.name}</Link>
+                                    {teachers.map((teacher) => (
+                                        <li className="field-item" key={teacher._id}>
+                                            <Link to={`/teachers/${teacher._id}`}>{teacher.surname} {teacher.name}</Link>
                                         </li>
                                     ))}
                                 </ul>
                             </div>) : 
-                            <div><p>Currently does not teaches any subjects</p></div>}
+                            <div><p>Currently does not read by any teachers</p></div>}
                             <button className="update-button" onClick={handleUpdateClick}>update</button>
                             <button className="delete-button" onClick={handleDelete}>delete</button>  
                         </div>
@@ -129,4 +134,4 @@ const TeacherDetails = () => {
     );
 }
  
-export default TeacherDetails;
+export default SubjectDetails;
