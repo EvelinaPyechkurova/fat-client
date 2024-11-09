@@ -151,10 +151,65 @@ button:hover {
     padding-left: 20px;
 }
 
-/* .emphasized{
+/* General sidebar styling */
+.filter-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 245px;
+    background-color: #e0cffe;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: #333;
+    box-sizing: border-box;
+}
+
+/* Header styling */
+.filter-sidebar h3 {
+    color: #6610f2;
+    margin-bottom: 20px;
+}
+
+/* Filter field styling */
+.filter {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.filter label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
     color: #6610f2;
 }
 
-.emphasized:hover{
-    text-decoration: underline;
-} */
+.filter input, .filter select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Button styling */
+.filter-sidebar button {
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+    background-color: #6610f2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.filter-sidebar button:hover {
+    background-color: #4e0cc8;
+}
