@@ -23,11 +23,14 @@ const LectureList = ({lectures}) => {
         <div className="item-list">
             {lectures.map((lecture) => (
                 <div className="preview" key={lecture._id}>
-                   Lecture on{' '}
-                        <Link to={`/subjects/${lecture.subject}`}>
-                            <span className='emphasized'>{lectureSubjects[lecture._id] || 'Loading...'}</span>
-                        </Link>{' '}
-                        scheduled for <span className='emphasized'>{lecture.date}</span>
+                    <Link to={`/lectures/${lecture._id}`}>
+                        Lecture on{' '}
+                            <Link to={`/subjects/${lecture.subject}`}>
+                                {lectureSubjects[lecture._id] || 'Loading...'}
+                            </Link>{' '}
+                        scheduled for {lecture.date}
+                    </Link>
+                    
                 </div>
             ))}
         </div>

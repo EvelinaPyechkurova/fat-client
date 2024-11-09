@@ -55,9 +55,14 @@
     margin-bottom: 8px;
 }
 
-.preview a{
+a{
     text-decoration: none;
 }
+
+a:hover{
+    color: #6610f2;
+}
+
 
 .details{
     padding: 20px;
@@ -128,14 +133,6 @@ button:hover {
     color: #f2f2f2;
 }
 
-.field-item a{
-    text-decoration: none;
-}
-
-.field-item a:hover{
-    color: #6610f2;
-}
-
 .errorMessage {
     background-color: #f8d7da;
     color: #721c24;
@@ -154,10 +151,10 @@ button:hover {
     padding-left: 20px;
 }
 
-.emphasized{
+/* .emphasized{
     color: #6610f2;
 }
 
 .emphasized:hover{
     text-decoration: underline;
-}
+} */
