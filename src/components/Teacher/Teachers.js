@@ -23,8 +23,8 @@ const Teachers = () => {
     })) : [];
 
     const fields = [
-        {name: "name", label: "teachers name"},
-        {name: "surname", label: "teachers surname"},
+        {type: "text", name: "name", label: "teachers name"},
+        {type: "text", name: "surname", label: "teachers surname"},
         {name: "subject", label: "Teacher reading subject", options: subjectOptions}
     ]
 

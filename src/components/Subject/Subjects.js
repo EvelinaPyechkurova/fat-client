@@ -24,7 +24,7 @@ const Subjects = () => {
     })) : [];
 
     const fields = [
-        {name: "name", label: "subjects name"},
+        {type: "text", name: "name", label: "subjects name"},
         {name: "year", label: "subjects year", options: YERS_VALUES},
         {name: "trimester", label: "trimester year", options: TRIMESTER_TYPE_VALUES},
         {name: "teacher", label: "subjects read by teacher", options: teacherOptions}

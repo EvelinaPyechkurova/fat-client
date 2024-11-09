@@ -28,6 +28,7 @@ const FilterSidebar = ({fields, onSearch}) => {
                          name={field.name}
                          value={filters[field.name]}
                          onChange={handleChange}>
+                            <option value=""></option>
                             {field.options.map(option =>
                                 typeof option === "object" ? (
                                     <option key={option.value} value={option.value}>
